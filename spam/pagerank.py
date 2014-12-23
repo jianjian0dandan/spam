@@ -83,7 +83,6 @@ if __name__ == "__main__":
     (options, args) = optparser.parse_args()
     input_file = options.input_path
     iter_count = options.iter_count
-    # input_file = '/home/%s/ljh/examples/src/main/python/%s'%(socket.gethostname(), input_file)
 
     # if not (iter_count and input_file and os.path.exists(input_file)):
     #     print iter_count, input_file, os.path.exists(input_file)

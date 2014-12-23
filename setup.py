@@ -1,8 +1,8 @@
 from setuptools import setup
 
-setup(name='spark_test',
-      description='Spark & Mesos & Hadoop',
+setup(name='spam',
+      description='Algorithm frameworks on spark, mesos& mooseFS',
       version='1.0',
       author='ljh',
-      packages=['spark_test']
+      packages=['spam']
       )
