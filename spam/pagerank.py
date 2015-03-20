@@ -32,7 +32,7 @@ def pagerank(iter_count, input_file, top_n):
     tmp_file_path = os.path.join("file://" + prefix_name, file_name )
 
     shutil.copy(input_file, prefix_name)
-    sc = SparkContext(appName=file_name,master="mesos://219.224.135.46:5050")
+    sc = SparkContext(appName=file_name,master="mesos://219.224.135.47:5050")
     # sc = SparkContext(appName=input_file)
 
     lines = sc.textFile(tmp_file_path, 1)
@@ -63,12 +63,12 @@ def pagerank(iter_count, input_file, top_n):
         results_list = results_list[:top_n]
 
     sorted_uids = []
-    # f = open("out.txt", "w")
+    f = open("out.txt", "w")
     for uid, r in results_list:
         sorted_uids.append(uid)
         # print '%s\t%s\n' % (uid, r)
-        # print >> f, '%s\t%s\n' % (uid, r)
-
+        print >> f, '%s\t%s\n' % (uid, r)
+    f.close()
     # delete file
     os.remove(prefix_name + file_name)
     sc.stop()
