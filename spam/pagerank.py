@@ -32,7 +32,7 @@ def pagerank(iter_count, input_file, top_n):
     tmp_file_path = os.path.join("file://" + prefix_name, file_name )
 
     shutil.copy(input_file, prefix_name)
-    sc = SparkContext(appName=file_name,master="mesos://219.224.135.47:5050")
+    sc = SparkContext(appName=file_name,master="mesos://219.224.135.48:5050")
     # sc = SparkContext(appName=input_file)
 
     lines = sc.textFile(tmp_file_path, 1)
