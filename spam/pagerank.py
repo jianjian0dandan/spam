@@ -63,12 +63,12 @@ def pagerank(iter_count, input_file, top_n):
         results_list = results_list[:top_n]
 
     sorted_uids = []
-    f = open("out.txt", "w")
+    # f = open("out.txt", "w")
     for uid, r in results_list:
         sorted_uids.append(uid)
         # print '%s\t%s\n' % (uid, r)
-        print >> f, '%s\t%s\n' % (uid, r)
-    f.close()
+        # print >> f, '%s\t%s\n' % (uid, r)
+    # f.close()
     # delete file
     os.remove(prefix_name + file_name)
     sc.stop()
