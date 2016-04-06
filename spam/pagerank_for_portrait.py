@@ -61,12 +61,13 @@ def pagerank(iter_count, input_file, top_n, flag):
     if len(degrees_list) > top_n:
         degrees_list = degrees_list[:top_n]
     
-    all_uids = initials.flatMap(lambda (url, neighbors): [url, neighbors[0]]).distinct()
+    all_uids = initials.flatMap(lambda (url, neighbors): [url, neighbors[0]]).distinct().cache()
+    all_uids_count = all_uids.count()
     all_uids_map = all_uids.flatMap(lambda x: [('global', x), (x, 'global')])
-    global_links = all_uids_map.groupByKey()
     
-    ini_links = initials.map(lambda (url, neighbors): (url, neighbors[0])).groupByKey() #(uid_a, [uid_b,uid_c])
-    links = global_links.union(ini_links).cache()
+    initials_map = initials.map(lambda (url, neighbors): (url, neighbors[0]))
+
+    links = all_uids_map.union(initials_map).groupByKey().cache() #(uid_a, [uid_b,uid_c])
     init_ranks = links.map(lambda (url, neighbors): (url, 1.0))
     ranks = extra_ranks.union(init_ranks).reduceByKey(mul).cache() #(uid, rank)
     
@@ -79,9 +80,8 @@ def pagerank(iter_count, input_file, top_n, flag):
     results_list = ranks.sortBy(lambda x:x[1], False).collect()
 
     #exclude global
-    top_n += 1
     if len(results_list) > top_n:
-        results_list = results_list[:top_n]
+        results_list = results_list[1:top_n+1]
 
     f = open("degree.txt", "w")
     for uid, r in degrees_list:
@@ -94,7 +94,7 @@ def pagerank(iter_count, input_file, top_n, flag):
     # delete file
     #os.remove(prefix_name + file_name)
     sc.stop()
-    return degrees_list, results_list
+    return all_uids_count, degrees_list, results_list
 
 if __name__ == "__main__":
 
