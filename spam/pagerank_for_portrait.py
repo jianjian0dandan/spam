@@ -82,6 +82,8 @@ def pagerank(iter_count, input_file, top_n, flag):
     #exclude global
     if len(results_list) > top_n:
         results_list = results_list[1:top_n+1]
+    else:
+        results_list = results_list[1:]
 
     f = open("degree.txt", "w")
     for uid, r in degrees_list:
