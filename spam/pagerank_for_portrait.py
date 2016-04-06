@@ -33,7 +33,7 @@ def pagerank(iter_count, input_file, top_n, flag):
         print 'error'
         return []
     '''
-    prefix_name = '/mnt/mfs/'
+    prefix_name = '/mnt/mfsdata/'
     file_name = input_file.split('/')[-1]
     tmp_file_path = os.path.join("file://" + prefix_name, file_name )
 
