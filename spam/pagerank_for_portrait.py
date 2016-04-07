@@ -94,7 +94,7 @@ def pagerank(iter_count, input_file, top_n, flag):
         print >> f, '%s\t%s\n' % (uid, r)
     f.close()
     # delete file
-    #os.remove(prefix_name + file_name)
+    os.remove(prefix_name + file_name)
     sc.stop()
     return all_uids_count, degrees_list, results_list
 
